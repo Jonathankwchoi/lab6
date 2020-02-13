@@ -3,7 +3,7 @@
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
 	initializePage();
-})
+});
 
 /*
  * Function that is called when the document is ready.
@@ -27,4 +27,13 @@ function addProjectDetails(e) {
 	var idNumber = projectID.substr('project'.length);
 
 	console.log("User clicked on project " + idNumber);
+	var url = "/project/" + idNumber;
+	$.get(url, callBackFn);
+	console.log(url);
+}
+
+function callBackFn(result){
+	console.log(result);
+	var htmlToAdd = "<p>" + result['title'] + "</p>" + "<h4><small>" + result['date'] + "</small></h4>" + '<img src="' + result['image'] +'" class="detailsImage">' + '<p>' + result['summary'] + '</p>';
+	$("div#project"+result.id+" div.details").html(htmlToAdd);
 }
